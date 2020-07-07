@@ -7,6 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.DataProvider;
 
 import base.BasePage;
+import io.qameta.allure.Step;
 
 public class HomePage extends BasePage {
 
@@ -38,11 +39,12 @@ public class HomePage extends BasePage {
 		driver.get("https://demo.smartosc.com/");
 		return this;
 	}
-
+	@Step("click on Sign in Link on homepage")
 	public HomePage clickOnSignIn() {
 		actionUtility.click(By.xpath(XPATH_LINK_SIGN_IN));
 		return this;
 	}
+	@Step("click on sign up on homePage")
 	public HomePage clickOnSignUp() {
 		actionUtility.click(By.xpath(XPATH_LINK_SIGN_UP));
 		return this;
