@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import base.BasePage;
+import io.qameta.allure.Step;
 
 public class MyAccountPage extends BasePage {
 	String CHANGE_PASS = "//a[@class = 'action change-password']";
@@ -25,6 +26,7 @@ public class MyAccountPage extends BasePage {
 	String ID_TELEPHONE = "telephone";
 	String ID_POSTCODE = "zip";
 	String ID_REGION_SELECT = "region_id";
+	String ID_REGION = "region";
 	String ID_COUNTRY = "country";
 	String ID_PHONE = "telephone";
 	String XPATH_BUTTON_SAVE_ADDRESS = "//button[@title = 'Save Address']";
@@ -41,9 +43,12 @@ public class MyAccountPage extends BasePage {
 		// TODO Auto-generated constructor stub
 	}
 	String MESSAGE_ERROR_ACOUNT = "//div[@data-bind='html: message.text']";
+	@Step("Click on password on my account page")
 	public void clickChangePasswordLink() {
 		actionUtility.click(By.xpath(CHANGE_PASS));
 	}
+	
+	@Step("Input current password, newPassWord and confirm PassWord")
 	public void changePassword(String currentPass, String newPass, String confirmPass) {
 		actionUtility.sendKeys(By.id(ID_CURRENT_PASS), currentPass);
 		actionUtility.sendKeys(By.id(ID_NEW_PASS), newPass);
@@ -70,19 +75,26 @@ public class MyAccountPage extends BasePage {
 		waitUtility.sleep(2);
 		String firstNameCurrent = actionUtility.getTextField(By.id(ID_FIRST_NAME));
 		if (!firstNameCurrent.isEmpty()) {
-			actionUtility.removeInput(By.id(ID_FIRST_NAME), firstName);
-			actionUtility.removeInput(By.id(ID_LAST_NAME), "");
+			actionUtility.removeInput(By.id(ID_FIRST_NAME));
+			actionUtility.removeInput(By.id(ID_LAST_NAME));
 		}
-		Select drpRegion = new Select(driver.findElement(By.id(ID_REGION_SELECT)));
-		drpRegion.selectByVisibleText(region);
+//		Select drpRegion = new Select(driver.findElement(By.id(ID_REGION_SELECT)));
+//		drpRegion.selectByValue(region);
 		Select drpCountry = new Select(driver.findElement(By.id(ID_COUNTRY)));
-		drpCountry.selectByVisibleText(country);
+		drpCountry.selectByValue(country);
 		actionUtility.sendKeys(By.id(ID_FIRST_NAME), firstName);
 		actionUtility.sendKeys(By.id(ID_LAST_NAME), lastName);
+		actionUtility.removeInput(By.id(ID_COMPANY));
 		actionUtility.sendKeys(By.id(ID_COMPANY), company);
+		actionUtility.removeInput(By.id(ID_STREET_ADDRESS));
 		actionUtility.sendKeys(By.id(ID_STREET_ADDRESS), streetAddress);
+		actionUtility.removeInput(By.id(ID_PHONE));
 		actionUtility.sendKeys(By.id(ID_PHONE), phoneNumber);
+		actionUtility.removeInput(By.id(ID_CITY));
 		actionUtility.sendKeys(By.id(ID_CITY), city);
+		actionUtility.removeInput(By.id(ID_REGION));
+		actionUtility.sendKeys(By.id(ID_REGION), region);
+		actionUtility.removeInput(By.id(ID_POSTCODE));
 		actionUtility.sendKeys(By.id(ID_POSTCODE), postcode);
 		actionUtility.click(By.xpath(XPATH_BUTTON_SAVE_ADDRESS));
 	}

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import base.BasePage;
+import io.qameta.allure.Step;
 
 public class SignInPage extends BasePage {
 
@@ -18,7 +19,7 @@ public class SignInPage extends BasePage {
 	public SignInPage(WebDriver driver) {
 		super(driver);
 	}
-	
+	@Step("Login with {email}/{pass}")
 	public void login(String email, String pass) {
 		actionUtility.sendKeys(By.id(ID_INPUT_EMAIL), email);
 		actionUtility.sendKeys(By.id(ID_INPUT_PASSWORD), pass);
@@ -26,6 +27,7 @@ public class SignInPage extends BasePage {
 		actionUtility.click(By.id(ID_BUTTON_SIGN_IN));
 	}
 	public String validEmail() {
+		waitUtility.waitUntilExist(By.id(ID_ERROR_INPUT_EMAIL),6);
 		if(actionUtility.checkElementExist(By.id(ID_ERROR_INPUT_EMAIL),6)) {
 			return actionUtility.getText(By.id(ID_ERROR_INPUT_EMAIL));
 		}

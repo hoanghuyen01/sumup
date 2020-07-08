@@ -20,7 +20,7 @@ public class ActionUtility {
 		waitUtility.waitUntilVisibility(locator);
 		driver.findElement(locator).sendKeys(data); 
 	}
-	public void removeInput(By locator, String data) {
+	public void removeInput(By locator) {
 		waitUtility.waitUntilVisibility(locator);
 		driver.findElement(locator).sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
 	}

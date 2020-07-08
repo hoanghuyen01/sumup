@@ -10,6 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
 import base.BasePage;
+import io.qameta.allure.Step;
 
 public class CategoryPage extends BasePage {
 	String XPATH_SORT_BY_PRICE = "(//select[@id = 'sorter'])[1]";
@@ -42,23 +43,29 @@ public class CategoryPage extends BasePage {
 		super(driver);
 		// TODO Auto-generated constructor stub
 	}
+	@Step("Open category page")
 	public CategoryPage open() {
 		driver.get("https://demo.smartosc.com/men/tops-men/jackets-men.html");
 		return this;
 	}
+	@Step("Click on sort by price on category page")
 	public void clickSortBy(String typeSortValue) {
 		Select drpSorting = new Select(driver.findElement(By.xpath(XPATH_SORT_BY_PRICE)));
 		drpSorting.selectByValue(typeSortValue);
 	}
+	@Step("Click on icon Sort Descending")
 	public void clickDescendingSorting() {
 		if(actionUtility.checkElementExist(By.xpath(XPATH_DES_SORTING), 6)) {
 			waitUtility.sleep(6);
 			actionUtility.click(By.xpath(XPATH_DES_SORTING));
 		}
 	}
+	
 	public float getPrice(By xpath) {
         return Float.parseFloat(driver.findElement(xpath).getText().replace("US$", "").replace(",", "."));
     }
+	
+	@Step("Click on icon Sort Ascending")
 	public void clickAscendingSorting()
 	{
 		if (actionUtility.checkElementExist(By.xpath(XPATH_ASC_SORTING), 6)) {
@@ -98,6 +105,7 @@ public class CategoryPage extends BasePage {
 		}
 		return true;
 	}
+	@Step("Click on add to compare")
 	public void clickAddToCompare(String nameProduct) {
 		waitUtility.sleep(4);
 		System.out.println(String.format(XPATH_ADD_TO_COMPARE, nameProduct));
@@ -107,6 +115,7 @@ public class CategoryPage extends BasePage {
 		WebElement addCompare = driver.findElement(By.xpath(String.format(XPATH_ADD_TO_COMPARE, nameProduct)));
 		actions.moveToElement(addCompare).click().build().perform();
 	}
+	@Step("Click on add to wish list icon")
 	public void clickAddToWishList(String nameProduct) {
 		waitUtility.sleep(4);
 		Actions actions = new Actions(driver);
@@ -115,30 +124,35 @@ public class CategoryPage extends BasePage {
 		WebElement addCompare = driver.findElement(By.xpath(String.format(XPATH_ADD_TO_WISHLIST, nameProduct)));
 		actions.moveToElement(addCompare).click().build().perform();
 	}
+	@Step("Click on select icon S size")
 	public void selectSSize(String nameProduct) {
 		actionUtility.click(By.xpath(String.format(XPATH_SIZE_S, nameProduct)));
 	}
+	@Step("Click on select icon Black color size")
 	public void selectBlackColor(String nameProduct) {
-		System.out.println(String.format(XPATH_COLOR_BLACK, nameProduct));
 		actionUtility.click(By.xpath(String.format(XPATH_COLOR_BLACK, nameProduct)));
 	}
+	@Step("Click on icon add to cart")
 	public void addToCart(String nameProduct) {
-		waitUtility.sleep(4);
+		waitUtility.sleep(6);
 		Actions actions = new Actions(driver);
 		WebElement mainMenu = driver.findElement(By.xpath(String.format(IMG_PRODUCT_LIST, nameProduct)));
 		actions.moveToElement(mainMenu);
 		WebElement addCompare = driver.findElement(By.xpath(String.format(XPATH_ADD_PRODUCT_TO_CART, nameProduct)));
 		actions.moveToElement(addCompare).click().build().perform();
 	}
+	@Step("Select filter black:color on the left site")
 	public void filterColorBlack() {
 		actionUtility.click(By.xpath(XPATH_FILTER_COLOR));
 		actionUtility.click(By.xpath(XPATH_FILTER_COLOR_BLACK));
 	}
+	@Step("Select filter S: Size on the left site")
 	public void filterSizeS() {
 		actionUtility.click(By.xpath(XPATH_FILTER_SIZE));
 		actionUtility.click(By.xpath(XPATH_FILTER_SIZE_S));
 		
 	}
+	@Step("Select filter 60-69.99:Price on the left site")
 	public void filterPrice6070() {
 		actionUtility.click(By.xpath(XPATH_FILTER_PRICE));
 		actionUtility.click(By.xpath(XPATH_FILTER_PRICE_60_69));

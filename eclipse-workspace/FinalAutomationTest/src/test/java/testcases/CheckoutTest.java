@@ -43,8 +43,9 @@ public class CheckoutTest extends BaseTest {
 		addProductToCart(nameProduct2);
 		addProductToCart(nameProduct3);
 		goToCheckoutShipping();
-		checkoutPage.checkShippingMethodTableRate();
-		checkoutPage.checkPaymentMethod();
+		checkoutPage.clickOnShippingMethodTableRate();
+		checkoutPage.clickNextButton();
+		checkoutPage.clickOnPaymentMethod();
 		String currentURL = driver.getCurrentUrl();
 		Assert.assertEquals(currentURL, SUCCESS_URL);
 		checkoutPage.checkNumberOrder();
@@ -52,6 +53,6 @@ public class CheckoutTest extends BaseTest {
 	}
 	@DataProvider(name = "data_test_checkout")
 	public static Object[][] dataCheckoutTest(){
-		return new Object[][] {{"huyenhoang@gmail.com","Huyen01$","Juno Jacket","Olivia 1/4 Zip Light Jacket","Nadia Elements Shell"}};
+		return new Object[][] {{"huyenhoang@gmail.com","Huyen01$","Neve Studio Dance Jacket","Olivia 1/4 Zip Light Jacket","Nadia Elements Shell"}};
 	}
 }

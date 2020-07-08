@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import io.qameta.allure.Description;
 import pages.HomePage;
 import pages.MyAccountPage;
 import pages.SignInPage;
@@ -24,7 +25,8 @@ public class MyAccountTest extends BaseTest{
 		signInPage = new SignInPage(driver);
 		myAccountPage = new MyAccountPage(driver);
 	}
-	//@Test(dataProvider = "invalid_current_pass")
+	@Test(dataProvider = "invalid_current_pass")
+	@Description("Test invalid current password")
 	public void testSendInvailCurrentPass(String email, String pass,String wrongPass ,String newPass, String confirmPass) {
 		homePage.open();
 		if (!signInPage.existWelcomeButton()) {
@@ -36,11 +38,12 @@ public class MyAccountTest extends BaseTest{
 		}
 		myAccountPage.clickChangePasswordLink();
 		myAccountPage.changePassword(wrongPass, newPass, confirmPass);
-		Assert.assertEquals(myAccountPage.checkInputWrongPass(),MESSAGE_ERROR_CURRENT_PASS);
+		Assert.assertEquals(myAccountPage.checkInputWrongPass(),MESSAGE_ERROR_CURRENT_PASS,"Test wrong current password pass!");
 		
 	}
-	//@Test(dataProvider = "invalid_confirm_pass")
-	public void testSendInvailConfrimPass(String email, String pass ,String newPass, String confirmPass) {
+	@Test(dataProvider = "invalid_confirm_pass")
+	@Description("Test invalid confirm password")
+	public void testSendInvailConfirmPass(String email, String pass ,String newPass, String confirmPass) {
 		homePage.open();
 		if (!signInPage.existWelcomeButton()) {
 			homePage.clickOnSignIn();
@@ -51,8 +54,7 @@ public class MyAccountTest extends BaseTest{
 		}
 		myAccountPage.clickChangePasswordLink();
 		myAccountPage.changePassword(pass, newPass, confirmPass);
-		Assert.assertEquals(myAccountPage.checkInputWrongConfirmPass(),MESSAGE_ERROR_CONFIRM_PASS);
-		
+		Assert.assertEquals(myAccountPage.checkInputWrongConfirmPass(),MESSAGE_ERROR_CONFIRM_PASS,"Test invalid confirm password pass");
 	}
 	@Test(dataProvider = "data_change_billing_address")
 	public void changeBillingaddress(String email, String pass ,String firstName, String lastName, String company, String phoneNumber,String streetAddress,
@@ -68,33 +70,37 @@ public class MyAccountTest extends BaseTest{
 		myAccountPage.clickOnChangeAddressBilling();
 		myAccountPage.editBillingAddress(firstName, lastName, company, phoneNumber, streetAddress, city, region, postcode, country);
 		if (firstName =="") {
-			Assert.assertEquals(myAccountPage.requireFirstName(),MESSAGE_ERROR_REQUIRE_INPUT_BILLING_ADDRESS);
+			Assert.assertEquals(myAccountPage.requireFirstName(),MESSAGE_ERROR_REQUIRE_INPUT_BILLING_ADDRESS,"Test require first name passed");
+			captureScreenshot("firstname");
 		}else if (lastName == "") {
-			Assert.assertEquals(myAccountPage.requireLastName(),MESSAGE_ERROR_REQUIRE_INPUT_BILLING_ADDRESS);
+			Assert.assertEquals(myAccountPage.requireLastName(),MESSAGE_ERROR_REQUIRE_INPUT_BILLING_ADDRESS,"Test require last name passed ");
+			captureScreenshot("lastname");
 		}else if (phoneNumber== "") {
-			Assert.assertEquals(myAccountPage.requirePhoneNumber(),MESSAGE_ERROR_REQUIRE_INPUT_BILLING_ADDRESS);
+			Assert.assertEquals(myAccountPage.requirePhoneNumber(),MESSAGE_ERROR_REQUIRE_INPUT_BILLING_ADDRESS,"Test require phone number passed");
+			captureScreenshot("phonenumber");
 		}else if (streetAddress =="") {
-			Assert.assertEquals(myAccountPage.requireStreet(),MESSAGE_ERROR_REQUIRE_INPUT_BILLING_ADDRESS);
+			Assert.assertEquals(myAccountPage.requireStreet(),MESSAGE_ERROR_REQUIRE_INPUT_BILLING_ADDRESS,"Test require Street passed");
+			captureScreenshot("streetaddress");
 		}else if (city == "") {
-			Assert.assertEquals(myAccountPage.requireCity(),MESSAGE_ERROR_REQUIRE_INPUT_BILLING_ADDRESS);
+			Assert.assertEquals(myAccountPage.requireCity(),MESSAGE_ERROR_REQUIRE_INPUT_BILLING_ADDRESS,"Test require City passed");
 		}else if (country == "") {
-			Assert.assertEquals(myAccountPage.requireCountry(),MESSAGE_ERROR_REQUIRE_SELECT_BILLING_ADDRESS);
+			Assert.assertEquals(myAccountPage.requireCountry(),MESSAGE_ERROR_REQUIRE_SELECT_BILLING_ADDRESS,"Test require country passed");
 		}else if (postcode == "") {
-			Assert.assertEquals(myAccountPage.requirePostCode(),MESSAGE_ERROR_REQUIRE_INPUT_BILLING_ADDRESS);
+			Assert.assertEquals(myAccountPage.requirePostCode(),MESSAGE_ERROR_REQUIRE_INPUT_BILLING_ADDRESS,"Test require PostCode passed");
 		}
 	}
 	
 	@DataProvider(name = "data_change_billing_address")
 	public static Object[][] dataChangeInformation(){
 		return new Object[][] {
-			{"huyenhoang@gmail.com","Huyen01$","","Le","SmartOsc", "0317549393" ,"Thanh Xuan, Nguyen Trai","Ha Noi","Alaska","1000","Việt Nam"},
-			{"huyenhoang@gmail.com","Huyen01$","Phuong","","SmartOsc", "0317549393" ,"Thanh Xuan, Nguyen Trai","Ha Noi","Alaska","1000","Việt Nam"},
-			{"huyenhoang@gmail.com","Huyen01$","Phuong","Le","SmartOsc", "" ,"Thanh Xuan, Nguyen Trai","Ha Noi","Alaska","1000","Việt Nam"},
-			{"huyenhoang@gmail.com","Huyen01$","Phuong","Le","SmartOsc", "0317549393" ,"","Ha Noi","Alaska","1000","Việt Nam"},
-			{"huyenhoang@gmail.com","Huyen01$","Phuong","Le","SmartOsc", "0317549393" ,"Thanh Xuan, Nguyen Trai","","Alaska","1000","Việt Nam"},
-			{"huyenhoang@gmail.com","Huyen01$","Phuong","Le","SmartOsc", "0317549393" ,"Thanh Xuan, Nguyen Trai","Ha Noi","Alaska","","Việt Nam"},
-			{"huyenhoang@gmail.com","Huyen01$","Phuong","Le","SmartOsc", "0317549393" ,"Thanh Xuan, Nguyen Trai","Ha Noi","Alaska","1000",""},
-			{"huyenhoang@gmail.com","Huyen01$","Phuong","Le","SmartOsc", "0317549393" ,"Thanh Xuan, Nguyen Trai","Ha Noi","Alaska","1000","Việt Nam"}
+			{"huyenhoang@gmail.com","Huyen01$","","Le","SmartOsc", "0317549393" ,"Thanh Xuan, Nguyen Trai","Ha Noi","Ha Noi","1000","VN"},
+			{"huyenhoang@gmail.com","Huyen01$","Phuong","","SmartOsc", "0317549393" ,"Thanh Xuan, Nguyen Trai","Ha Noi","Ha Noi","1000","VN"},
+			{"huyenhoang@gmail.com","Huyen01$","Phuong","Le","SmartOsc", "" ,"Thanh Xuan, Nguyen Trai","Ha Noi","Ha Noi","1000","VN"},
+			{"huyenhoang@gmail.com","Huyen01$","Phuong","Le","SmartOsc", "0317549393" ,"","Ha Noi","Ha Noi","1000","VN"},
+			{"huyenhoang@gmail.com","Huyen01$","Phuong","Le","SmartOsc", "0317549393" ,"Thanh Xuan, Nguyen Trai","","Ha Noi","1000","VN"},
+			{"huyenhoang@gmail.com","Huyen01$","Phuong","Le","SmartOsc", "0317549393" ,"Thanh Xuan, Nguyen Trai","Ha Noi","Ha Noi","","VN"},
+			{"huyenhoang@gmail.com","Huyen01$","Phuong","Le","SmartOsc", "0317549393" ,"Thanh Xuan, Nguyen Trai","Ha Noi","Ha Noi","1000",""},
+			{"huyenhoang@gmail.com","Huyen01$","Phuong","Le","SmartOsc", "0317549393" ,"Thanh Xuan, Nguyen Trai","Ha Noi","Ha Noi","1000","VN"}
 			};
 	}
 	@DataProvider(name = "invalid_current_pass")
