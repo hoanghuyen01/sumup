@@ -43,7 +43,7 @@ public class MyAccountTest extends BaseTest{
 	}
 	@Test(dataProvider = "invalid_confirm_pass")
 	@Description("Test invalid confirm password")
-	public void testSendInvailConfrimPass(String email, String pass ,String newPass, String confirmPass) {
+	public void testSendInvailConfirmPass(String email, String pass ,String newPass, String confirmPass) {
 		homePage.open();
 		if (!signInPage.existWelcomeButton()) {
 			homePage.clickOnSignIn();

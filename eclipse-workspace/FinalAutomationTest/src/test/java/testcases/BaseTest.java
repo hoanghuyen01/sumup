@@ -38,7 +38,7 @@ public class BaseTest {
      
     File source=ts.getScreenshotAs(OutputType.FILE);
     
-    File DestFile = new File("D://"+screenshotName+".png") ;
+    File DestFile = new File("D://automationtest/"+screenshotName+".png") ;
      
     FileUtils.copyFile(source, DestFile);
      

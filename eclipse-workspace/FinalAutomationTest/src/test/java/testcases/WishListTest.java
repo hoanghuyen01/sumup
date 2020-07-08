@@ -26,7 +26,7 @@ public class WishListTest extends BaseTest{
 		signInPage = new SignInPage(driver);
 		wishListPage = new WishListPage(driver);
 	}
-	//@Test(dataProvider = "data_test_valid_Account")
+	@Test(dataProvider = "data_test_valid_Account")
 	public void addProductToWishList(String email, String pass) {
 		homePage.open();
 		if (!signInPage.existWelcomeButton()) {
@@ -53,7 +53,7 @@ public class WishListTest extends BaseTest{
 		System.out.println(wishListPage.checkExistProduct());
 		Assert.assertEquals(wishListPage.checkExistOfButton(),wishListPage.checkExistProduct());
 	}
-	//@Test(dataProvider = "name_product")
+	@Test(dataProvider = "name_product")
 	public void removeProductFromWishList(String nameProduct) {
 		Assert.assertEquals(wishListPage.clickRemoveWishList(nameProduct), String.format(MESSAGE_REMOVE_SUCCESS, nameProduct));
 	}
